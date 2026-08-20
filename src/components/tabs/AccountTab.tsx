@@ -1,4 +1,5 @@
-import { Badge, Card, Flow, ReqList, Section } from "../ui";
+import { FlowDiagram, FlowDiagramRow, DiagramLegend } from "../Diagram";
+import { Badge, Card, ReqList, Section } from "../ui";
 
 export function AccountTab() {
   return (
@@ -29,32 +30,42 @@ export function AccountTab() {
       </Section>
 
       <Section title="How data is connected">
-        <Card>
-          <Flow
-            steps={[
-              {
-                title: "Sales Orders Uploading",
-                detail: "Has Account lookup only (no Contact field on the SO).",
-                status: "live",
-              },
-              {
-                title: "Account",
-                detail: "Company record — e.g. Test Zoho Draft.",
-                status: "live",
-              },
-              {
-                title: "First Contact under Account",
-                detail: "Name, Email, Phone copied to the Refund.",
-                status: "live",
-              },
-              {
-                title: "CS Specialists → CS Assignment Pool → CS Users",
-                detail: "That user becomes Refund Owner.",
-                status: "live",
-              },
-            ]}
-          />
-        </Card>
+        <FlowDiagram
+          title="Account chain used by Create Refund"
+          nodes={[
+            {
+              id: "so",
+              label: "Sales Orders Uploading",
+              sub: "Has Account lookup only",
+              tone: "live",
+            },
+            {
+              id: "acc",
+              label: "Account",
+              sub: "Company record",
+              tone: "live",
+            },
+            {
+              id: "c1",
+              label: "First Contact",
+              sub: "Name · Email · Phone → Refund",
+              tone: "live",
+            },
+            {
+              id: "pool",
+              label: "CS Specialists → Assignment Pool",
+              sub: "CS Users user",
+              tone: "live",
+            },
+            {
+              id: "own",
+              label: "Refund Owner",
+              sub: "That CS user",
+              tone: "live",
+            },
+          ]}
+        />
+        <DiagramLegend />
       </Section>
 
       <Section title="What is working now">

@@ -1,6 +1,12 @@
 "use client";
 
-import { Badge, Card, Flow, ReqList, Section, Table } from "../ui";
+import {
+  BranchDiagram,
+  DiagramLegend,
+  FlowDiagram,
+  FlowDiagramRow,
+} from "../Diagram";
+import { Badge, Card, ReqList, Section, Table } from "../ui";
 
 function fmt(d: Date) {
   return d.toLocaleDateString("en-GB", {
@@ -114,64 +120,171 @@ export function RefundTab() {
         />
       </Section>
 
-      {/* 3 Complete flow */}
-      <Section eyebrow="3 · Complete flow" title="Step by step (everything)">
-        <Card>
-          <Flow
-            steps={[
+      {/* 3 Complete flow — diagrams */}
+      <Section eyebrow="3 · Complete flow" title="Diagrams (follow the arrows)">
+        <p className="mb-5 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Green = live in Zoho. Amber = partly live. Grey = not built yet.
+        </p>
+
+        <div className="mb-8">
+          <FlowDiagram
+            title="Main refund journey"
+            nodes={[
               {
-                title: "Sales Order — click Create Refund",
-                detail:
-                  "Checks Active + Monthly/Annual window. Blocks if Account, Contact, or CS Specialist missing. Blocks second open refund for same subscription.",
-                status: "live",
+                id: "so",
+                label: "Sales Orders Uploading",
+                sub: "Click Create Refund",
+                tone: "live",
               },
               {
-                title: "Refund created",
-                detail:
-                  "Owner = CS Specialist. Account + Contact + Email + Phone filled. Pipeline = Backlog (or New | Backlog). Amount, CR, Subscription Number copied.",
-                status: "live",
+                id: "check",
+                label: "Eligibility check",
+                sub: "Active + Monthly ≤3 / Annual ≤5 days",
+                tone: "live",
               },
               {
-                title: "CS moves Refund Cycle blueprint",
-                detail:
-                  "Backlog → In Contact → Eligible / Not Eligible → Waiting for Response → Compensation / Refund → Ticket Closed.",
-                status: "live",
+                id: "create",
+                label: "Refund created",
+                sub: "CS Owner · Account · Contact · Backlog",
+                tone: "live",
               },
               {
-                title: "CS chooses Bank Details Collection Method",
-                detail: "Manual Entry OR Send Form to Customer.",
-                status: "live",
+                id: "bp",
+                label: "Refund Cycle blueprint",
+                sub: "CS moves the stages",
+                tone: "live",
               },
               {
-                title: "A) Manual Entry",
-                detail: "CS types Bank Name, Account Number, IBAN on the Refund. No form email. No Form Send Date. No 2-day reminder.",
-                status: "live",
+                id: "method",
+                label: "Bank collection method",
+                sub: "CS chooses one option",
+                tone: "live",
               },
               {
-                title: "B) Send Form to Customer",
-                detail:
-                  "Email with Zoho Form link. Form Send Date set. Customer submits → Bank Name / Account / IBAN updated + form on related list. Bank Detail Submit checked. CS emailed immediately.",
-                status: "live",
+                id: "bank",
+                label: "Bank details ready",
+                sub: "IBAN on the Refund record",
+                tone: "live",
               },
               {
-                title: "Reminder (form path only)",
-                detail:
-                  "2 days after Form Send Date, if Bank Detail Submit still empty → reminder email to customer.",
-                status: "live",
+                id: "fin",
+                label: "Notify Finance",
+                sub: "CS action — coming next",
+                tone: "soon",
               },
               {
-                title: "CS notifies Finance",
-                detail: "Dedicated option / action — to be added.",
-                status: "soon",
-              },
-              {
-                title: "Finance pays and marks refund done",
-                detail: "Then emails to CS and customer.",
-                status: "soon",
+                id: "pay",
+                label: "Finance pays + marks done",
+                sub: "Then email CS + customer",
+                tone: "soon",
               },
             ]}
           />
-        </Card>
+          <DiagramLegend />
+        </div>
+
+        <div className="mb-8">
+          <BranchDiagram
+            title="Bank details — two paths"
+            parent={{
+              id: "choose",
+              label: "Bank Details Collection Method",
+              tone: "live",
+            }}
+            leftLabel="Option A"
+            rightLabel="Option B"
+            left={{
+              id: "manual",
+              label: "Manual Entry",
+              sub: "CS types Bank Name · Account · IBAN. No form. No reminder.",
+              tone: "live",
+            }}
+            right={{
+              id: "form",
+              label: "Send Form to Customer",
+              sub: "Email Zoho Form → customer fills → CRM updates → CS emailed",
+              tone: "live",
+            }}
+          />
+        </div>
+
+        <div className="mb-8">
+          <FlowDiagram
+            title="Form path detail (when Send Form is chosen)"
+            nodes={[
+              {
+                id: "email",
+                label: "Email to customer",
+                sub: "Form link + Form Send Date set",
+                tone: "live",
+              },
+              {
+                id: "wait",
+                label: "Customer opens Zoho Form",
+                sub: "Fills Bank Name · Account · IBAN",
+                tone: "live",
+              },
+              {
+                id: "submit",
+                label: "Form submitted",
+                sub: "Related list + bank fields + checkbox",
+                tone: "live",
+              },
+              {
+                id: "csmail",
+                label: "Email to CS Owner",
+                sub: "Review and prepare for Finance",
+                tone: "live",
+              },
+            ]}
+          />
+        </div>
+
+        <div className="mb-8">
+          <FlowDiagramRow
+            title="Reminder (only if form not submitted)"
+            nodes={[
+              {
+                id: "sent",
+                label: "Form Send Date",
+                sub: "Day 0",
+                tone: "live",
+              },
+              {
+                id: "d2",
+                label: "After 2 days",
+                sub: "Workflow runs",
+                tone: "live",
+              },
+              {
+                id: "chk",
+                label: "Bank Detail Submit empty?",
+                sub: "Yes → send reminder",
+                tone: "live",
+              },
+              {
+                id: "rem",
+                label: "Reminder email",
+                sub: "To customer",
+                tone: "live",
+              },
+            ]}
+          />
+        </div>
+
+        <div className="mb-2">
+          <FlowDiagramRow
+            title="Refund Cycle pipeline (existing blueprint)"
+            nodes={[
+              { id: "p1", label: "Backlog", tone: "live" },
+              { id: "p2", label: "In Contact", tone: "live" },
+              { id: "p3", label: "Eligible / Not Eligible", tone: "live" },
+              { id: "p4", label: "Waiting for Response", tone: "live" },
+              { id: "p5", label: "Compensation / Refund", tone: "live" },
+              { id: "p6", label: "Ticket Closed", tone: "live" },
+            ]}
+          />
+        </div>
       </Section>
 
       {/* 4 Eligibility */}

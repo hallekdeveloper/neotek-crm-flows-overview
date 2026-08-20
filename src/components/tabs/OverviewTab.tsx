@@ -1,3 +1,4 @@
+import { FlowDiagramRow, DiagramLegend } from "../Diagram";
 import { Badge, Card, ReqList, Section } from "../ui";
 
 type Go = (id: "account" | "cs" | "refund" | "retention") => void;
@@ -10,6 +11,20 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
           Your Zoho CRM connects Sales Orders, Accounts, Contacts, CS Specialists,
           and Refunds. Below is the big picture. Open each tab for the full flow.
         </p>
+
+        <div className="mb-8">
+          <FlowDiagramRow
+            title="Big picture"
+            nodes={[
+              { id: "a", label: "Account", sub: "Foundation", tone: "live" },
+              { id: "c", label: "CS Flow", sub: "Owns refund", tone: "partial" },
+              { id: "r", label: "Refund Flow", sub: "Create → bank → pay", tone: "partial" },
+              { id: "t", label: "Retention", sub: "Not started", tone: "soon" },
+            ]}
+          />
+          <DiagramLegend />
+        </div>
+
         <div className="grid gap-4 md:grid-cols-2">
           {[
             {

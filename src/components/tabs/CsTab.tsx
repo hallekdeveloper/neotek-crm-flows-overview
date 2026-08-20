@@ -1,4 +1,5 @@
-import { Badge, Card, Flow, ReqList, Section, Table } from "../ui";
+import { BranchDiagram, DiagramLegend, FlowDiagram } from "../Diagram";
+import { Badge, Card, ReqList, Section, Table } from "../ui";
 
 export function CsTab() {
   return (
@@ -25,43 +26,69 @@ export function CsTab() {
         </Card>
       </Section>
 
-      <Section title="CS journey (simple)">
-        <Card>
-          <Flow
-            steps={[
-              {
-                title: "Refund is created",
-                detail: "Owner = CS Specialist. Pipeline starts at Backlog / New.",
-                status: "live",
-              },
-              {
-                title: "CS reviews and moves the pipeline",
-                detail: "Uses existing Refund Cycle blueprint (Eligible, Waiting for Response, etc.).",
-                status: "live",
-              },
-              {
-                title: "CS chooses bank collection method",
-                detail: "Manual Entry = type IBAN on the record. Send Form = email to customer.",
-                status: "live",
-              },
-              {
-                title: "Bank details arrive",
-                detail: "From form or manual typing. CS is emailed when the form is submitted.",
-                status: "live",
-              },
-              {
-                title: "CS notifies Finance",
-                detail: "Dedicated action / option — to be added next.",
-                status: "soon",
-              },
-              {
-                title: "Finance pays → CS + customer notified",
-                detail: "Completion emails after Finance confirms.",
-                status: "soon",
-              },
-            ]}
+      <Section title="CS journey diagram">
+        <FlowDiagram
+          title="What CS does"
+          nodes={[
+            {
+              id: "own",
+              label: "Refund assigned to CS",
+              sub: "Automatic on create",
+              tone: "live",
+            },
+            {
+              id: "pipe",
+              label: "Move pipeline stages",
+              sub: "Refund Cycle blueprint",
+              tone: "live",
+            },
+            {
+              id: "bank",
+              label: "Choose bank method",
+              sub: "Manual or Send Form",
+              tone: "live",
+            },
+            {
+              id: "ready",
+              label: "Bank details ready",
+              sub: "Review IBAN on the record",
+              tone: "live",
+            },
+            {
+              id: "fin",
+              label: "Notify Finance",
+              sub: "Coming next",
+              tone: "soon",
+            },
+            {
+              id: "done",
+              label: "Payout confirmed",
+              sub: "CS + customer emailed",
+              tone: "soon",
+            },
+          ]}
+        />
+        <DiagramLegend />
+        <div className="mt-8">
+          <BranchDiagram
+            title="Bank collection choice"
+            parent={{ id: "m", label: "CS picks method", tone: "live" }}
+            leftLabel="Manual"
+            rightLabel="Form"
+            left={{
+              id: "man",
+              label: "Type bank details",
+              sub: "No customer email",
+              tone: "live",
+            }}
+            right={{
+              id: "frm",
+              label: "Email form to customer",
+              sub: "CS notified on submit",
+              tone: "live",
+            }}
           />
-        </Card>
+        </div>
       </Section>
 
       <Section title="Bank details — two options for CS">
