@@ -1,4 +1,4 @@
-import { FlowDiagram, FlowDiagramRow, DiagramLegend } from "../Diagram";
+import { FlowDiagram, DiagramLegend } from "../Diagram";
 import { Badge, Card, ReqList, Section } from "../ui";
 
 export function AccountTab() {
