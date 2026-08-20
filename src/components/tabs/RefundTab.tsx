@@ -1,6 +1,41 @@
+"use client";
+
 import { Badge, Card, Flow, ReqList, Section, Table } from "../ui";
 
+function fmt(d: Date) {
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function addDays(base: Date, n: number) {
+  const d = new Date(base);
+  d.setHours(12, 0, 0, 0);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+
 export function RefundTab() {
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const todayLabel = fmt(today);
+
+  const monthlyRows = [
+    ["M1", "Same day (day 0)", fmt(today), "MONTHLY", "Create refund"],
+    ["M2", "Last allowed day (day 3)", fmt(addDays(today, -3)), "MONTHLY", "Create refund"],
+    ["M3", "One day late (day 4)", fmt(addDays(today, -4)), "MONTHLY", "Blocked — window closed"],
+    ["M4", "Start in future", fmt(addDays(today, 3)), "MONTHLY", "Blocked — Start in the future"],
+  ];
+
+  const annualRows = [
+    ["A1", "Same day (day 0)", fmt(today), "ANNUAL", "Create refund"],
+    ["A2", "Last allowed day (day 5)", fmt(addDays(today, -5)), "ANNUAL", "Create refund"],
+    ["A3", "One day late (day 6)", fmt(addDays(today, -6)), "ANNUAL", "Blocked — window closed"],
+    ["A4", "Start in future", fmt(addDays(today, 3)), "ANNUAL", "Blocked — Start in the future"],
+  ];
+
   return (
     <div>
       <div className="mb-8 flex flex-wrap items-center gap-3">
@@ -83,11 +118,49 @@ export function RefundTab() {
           </Card>
         </div>
         <Table
-          headers={["Plan", "Rule", "Example (Start 20 Aug)", "Last day"]}
+          headers={["Plan", "Rule", `Example (Start ${todayLabel})`, "Last day"]}
           rows={[
-            ["Monthly", "(Today − Start) ≤ 3", "20–23 Aug allowed", "23 Aug"],
-            ["Annual", "(Today − Start) ≤ 5", "20–25 Aug allowed", "25 Aug"],
+            [
+              "Monthly",
+              "(Today − Start) ≤ 3",
+              `${todayLabel} → ${fmt(addDays(today, 3))} allowed`,
+              fmt(addDays(today, 3)),
+            ],
+            [
+              "Annual",
+              "(Today − Start) ≤ 5",
+              `${todayLabel} → ${fmt(addDays(today, 5))} allowed`,
+              fmt(addDays(today, 5)),
+            ],
           ]}
+        />
+      </Section>
+
+      <Section eyebrow="For testers" title="Test cases — use these Start Dates">
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Today is treated as <strong className="text-[var(--ink)]">{todayLabel}</strong>.
+          On the Sales Order: set <strong className="text-[var(--ink)]">Subscription Status = Active</strong>,
+          set <strong className="text-[var(--ink)]">Payment Frequency</strong>, change only{" "}
+          <strong className="text-[var(--ink)]">Start Date</strong> as below, then click Create Refund.
+          End Date can stay as-is. Close any open Refund for that subscription first.
+        </p>
+
+        <p className="mb-3 text-sm font-semibold text-[var(--ink)]">
+          MONTHLY — allowed if (Today − Start) ≤ 3
+        </p>
+        <div className="mb-8">
+          <Table
+            headers={["#", "Case", "Set Start Date to", "Payment Frequency", "Expected"]}
+            rows={monthlyRows}
+          />
+        </div>
+
+        <p className="mb-3 text-sm font-semibold text-[var(--ink)]">
+          ANNUAL / YEARLY — allowed if (Today − Start) ≤ 5
+        </p>
+        <Table
+          headers={["#", "Case", "Set Start Date to", "Payment Frequency", "Expected"]}
+          rows={annualRows}
         />
       </Section>
 
