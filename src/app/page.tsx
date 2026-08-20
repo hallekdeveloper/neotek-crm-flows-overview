@@ -1,102 +1,80 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { OverviewTab } from "../components/tabs/OverviewTab";
+import { AccountTab } from "../components/tabs/AccountTab";
+import { CsTab } from "../components/tabs/CsTab";
+import { RefundTab } from "../components/tabs/RefundTab";
+import { RetentionTab } from "../components/tabs/RetentionTab";
+
+const tabs = [
+  { id: "overview", label: "Overview" },
+  { id: "account", label: "Account" },
+  { id: "cs", label: "CS Flow" },
+  { id: "refund", label: "Refund Flow" },
+  { id: "retention", label: "Retention Flow" },
+] as const;
+
+type TabId = (typeof tabs)[number]["id"];
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [active, setActive] = useState<TabId>("overview");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <div className="min-h-screen">
+      <header className="border-b border-[var(--line)]/80 bg-[var(--card)]/70 backdrop-blur-md">
+        <div className="mx-auto max-w-5xl px-5 py-8 md:px-8 md:py-10">
+          <p className="text-xs font-semibold tracking-[0.22em] text-[var(--accent)] uppercase">
+            Neotek · Zoho CRM
+          </p>
+          <h1
+            className="mt-3 max-w-2xl text-4xl leading-[1.1] text-[var(--ink)] md:text-5xl"
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            How your CRM flows work
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--ink-soft)] md:text-lg">
+            One simple place to see business rules, what is live in Zoho today,
+            and what comes next. No technical jargon.
+          </p>
         </div>
+
+        <nav className="mx-auto max-w-5xl overflow-x-auto px-5 md:px-8">
+          <div className="flex min-w-max gap-1 border-t border-[var(--line)]/60 pt-1">
+            {tabs.map((tab) => {
+              const on = active === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActive(tab.id)}
+                  className={`relative px-4 py-3.5 text-sm font-medium transition-colors ${
+                    on
+                      ? "text-[var(--accent)]"
+                      : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                  }`}
+                >
+                  {tab.label}
+                  {on && (
+                    <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-[var(--accent)]" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+      </header>
+
+      <main className="mx-auto max-w-5xl px-5 py-10 md:px-8 md:py-14">
+        {active === "overview" && <OverviewTab onGo={setActive} />}
+        {active === "account" && <AccountTab />}
+        {active === "cs" && <CsTab />}
+        {active === "refund" && <RefundTab />}
+        {active === "retention" && <RetentionTab />}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="border-t border-[var(--line)]/70 py-8 text-center text-sm text-[var(--ink-soft)]">
+        Updated 20 Aug 2026 · Built for client review
       </footer>
     </div>
   );
