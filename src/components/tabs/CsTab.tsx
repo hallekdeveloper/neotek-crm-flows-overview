@@ -1,5 +1,5 @@
 import { BranchDiagram, DiagramLegend, FlowDiagram } from "../Diagram";
-import { Badge, Card, ReqList, Section, Table } from "../ui";
+import { Badge, Card, Flow, ReqList, Section, Table } from "../ui";
 
 export function CsTab() {
   return (
@@ -7,28 +7,155 @@ export function CsTab() {
       <div className="mb-8 flex flex-wrap items-center gap-3">
         <Badge tone="partial">Mostly live</Badge>
         <p className="text-sm text-[var(--ink-soft)]">
-          CS owns the Refund from create through bank details. Finance handoff is next.
+          CS ownership, Refund bank path, and Renewal Tasks are live. Pool delete
+          Round Robin is the next CS Assignment Pool build.
         </p>
       </div>
 
-      <Section eyebrow="CS Flow" title="Business requirements">
+      <Section eyebrow="CS Flow" title="What CS Flow covers">
+        <p className="mb-6 max-w-2xl leading-relaxed text-[var(--ink-soft)]">
+          Customer Success owns the customer relationship in Zoho. That starts with
+          the <strong className="text-[var(--ink)]">CS Assignment Pool</strong>{" "}
+          (who is each Account’s specialist), then flows into Tasks, Refunds, and
+          Renewal follow-ups for that same person.
+        </p>
         <Card>
           <ReqList
             items={[
-              "CS Specialist is automatically the Refund Owner.",
-              "CS chooses how to collect bank details: Manual Entry or Send Form to Customer.",
-              "If form is used, CS gets an email when the customer submits.",
-              "If the customer does not submit in 2 days, a reminder email is sent.",
-              "After bank details are ready, CS notifies Finance to pay (option to be added).",
-              "When Finance marks refund done, CS (and customer) get a confirmation email.",
+              "Each CS Assignment Pool record = one CS Specialist (example: Mohamed Alzoubi).",
+              "Accounts are linked to a Pool record via CS Specialists.",
+              "The Pool’s CS Users field is the CRM user who owns Tasks and Refunds.",
+              "If a Pool record is deleted, its Accounts are redistributed with Round Robin.",
+              "CS also owns the Refund journey (bank details) and Renewal follow-up Tasks.",
             ]}
           />
         </Card>
       </Section>
 
-      <Section title="CS journey diagram">
+      <Section eyebrow="CS Assignment Pool" title="Module — specialists and Accounts">
         <FlowDiagram
-          title="What CS does"
+          title="From Pool to daily work"
+          nodes={[
+            {
+              id: "pool",
+              label: "CS Assignment Pool",
+              sub: "One record per specialist",
+              tone: "live",
+            },
+            {
+              id: "acc",
+              label: "Accounts assigned",
+              sub: "CS Specialists lookup",
+              tone: "live",
+            },
+            {
+              id: "user",
+              label: "CS Users (CRM user)",
+              sub: "On the Pool record",
+              tone: "live",
+            },
+            {
+              id: "out",
+              label: "Tasks · Refunds · Renewal",
+              sub: "Owner = that user",
+              tone: "live",
+            },
+          ]}
+        />
+        <DiagramLegend />
+        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Example: Mohamed Alzoubi’s Pool record may show several Accounts (for
+          example 7). Those Accounts all use Mohamed as their CS Specialist until
+          the Pool record changes or is removed.
+        </p>
+      </Section>
+
+      <Section title="Business rule — delete Pool → Round Robin reassign">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <Badge tone="soon">Agreed — build next</Badge>
+        </div>
+        <p className="mb-6 max-w-2xl leading-relaxed text-[var(--ink-soft)]">
+          When a specialist’s Pool record is deleted, Accounts must not stay
+          pointing at a missing specialist. The system redistributes them evenly
+          among everyone still in the Pool.
+        </p>
+        <Flow
+          steps={[
+            {
+              title: "Detect delete",
+              detail:
+                "A CS Assignment Pool record is deleted (example: Mohamed Alzoubi).",
+              status: "soon",
+            },
+            {
+              title: "Find affected Accounts",
+              detail:
+                "Fetch every Account where CS Specialists equals that deleted Pool record.",
+              status: "soon",
+            },
+            {
+              title: "Load remaining specialists",
+              detail:
+                "Get all other active CS Assignment Pool records (exclude the deleted one).",
+              status: "soon",
+            },
+            {
+              title: "Round Robin reassign",
+              detail:
+                "Walk the Account list and assign B, C, B, C… so workload stays even.",
+              status: "soon",
+            },
+            {
+              title: "Handle edge cases",
+              detail:
+                "One specialist left → all Accounts go there. Zero left → alert Admin / do not leave Accounts empty silently.",
+              status: "soon",
+            },
+          ]}
+        />
+      </Section>
+
+      <Section title="Round Robin example (client scenario)">
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Pool today: Mohamed Alzoubi, Specialist B, Specialist C. Mohamed is
+          deleted and had 7 Accounts. Those Accounts move like this:
+        </p>
+        <Table
+          headers={["Account", "Assigned to after delete"]}
+          rows={[
+            ["Account 1", "Specialist B"],
+            ["Account 2", "Specialist C"],
+            ["Account 3", "Specialist B"],
+            ["Account 4", "Specialist C"],
+            ["Account 5", "Specialist B"],
+            ["Account 6", "Specialist C"],
+            ["Account 7", "Specialist B"],
+          ]}
+        />
+        <div className="mt-6">
+          <Table
+            headers={["Situation", "What should happen"]}
+            rows={[
+              [
+                "2+ specialists remain",
+                "Accounts are split evenly with Round Robin (B, C, B, C…).",
+              ],
+              [
+                "Only 1 specialist remains",
+                "All Accounts from the deleted Pool go to that specialist.",
+              ],
+              [
+                "No specialists remain",
+                "Do not leave Accounts without CS silently — notify Admin and stop or leave a clear flag.",
+              ],
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section title="CS journey on Refunds (already live)">
+        <FlowDiagram
+          title="What CS does on a Refund"
           nodes={[
             {
               id: "own",
@@ -113,11 +240,13 @@ export function CsTab() {
         <Card>
           <ReqList
             items={[
-              "Automatic ownership when Refund is created.",
-              "Bank Details Collection Method field with both options.",
-              "Form path updates Bank Name, Account Number, IBAN on the Refund.",
-              "Immediate email to CS Owner when customer submits the form.",
-              "Reminder workflow: 2 days after Form Send Date if Bank Detail Submit is still empty.",
+              "CS Assignment Pool → Account CS Specialists → CS Users is live for ownership.",
+              "Automatic Refund ownership from the Account’s CS Specialist.",
+              "Bank Details Collection Method with Manual Entry or Send Form.",
+              "Form path updates Bank Name, Account Number, IBAN; CS is emailed on submit.",
+              "2-day reminder if the form was sent and not submitted.",
+              "Renewal follow-up Tasks (within 60 days of yearly End Date) use the same CS Owner.",
+              "Round Robin when a Pool record is deleted — agreed rule, automation next.",
             ]}
           />
         </Card>

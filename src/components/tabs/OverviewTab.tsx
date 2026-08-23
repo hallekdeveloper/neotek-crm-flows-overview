@@ -8,18 +8,19 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
     <div>
       <Section eyebrow="Start here" title="What this project covers">
         <p className="mb-6 max-w-2xl text-[var(--ink-soft)] leading-relaxed">
-          Your Zoho CRM connects Sales Orders, Accounts, Contacts, CS Specialists,
-          and Refunds. Below is the big picture. Open each tab for the full flow.
+          Your Zoho CRM connects Sales Orders, Accounts, Contacts, the CS
+          Assignment Pool, Refunds, and Retention. Below is the big picture. Open
+          each tab for the full flow.
         </p>
 
         <div className="mb-8">
           <FlowDiagramRow
             title="Big picture"
             nodes={[
-              { id: "a", label: "Account", sub: "Foundation", tone: "live" },
-              { id: "c", label: "CS Flow", sub: "Owns refund", tone: "partial" },
+              { id: "a", label: "Account", sub: "Foundation + Pool", tone: "live" },
+              { id: "c", label: "CS Flow", sub: "Pool · Refund · Renew", tone: "partial" },
               { id: "r", label: "Refund Flow", sub: "Create → bank → pay", tone: "partial" },
-              { id: "t", label: "Retention", sub: "Not started", tone: "soon" },
+              { id: "t", label: "Retention", sub: "Renewal task live", tone: "partial" },
             ]}
           />
           <DiagramLegend />
@@ -31,13 +32,13 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               id: "account" as const,
               title: "Account",
               status: "live" as const,
-              text: "Customer company, Contact, and CS Specialist — used by every other flow.",
+              text: "Customer company, Contact, and CS Assignment Pool — used by every other flow.",
             },
             {
               id: "cs" as const,
               title: "CS Flow",
               status: "partial" as const,
-              text: "CS owns the refund, sends or enters bank details, gets notified, then involves Finance.",
+              text: "CS Assignment Pool ownership, Refund bank path, Renewal Tasks. Round Robin on Pool delete is next.",
             },
             {
               id: "refund" as const,
@@ -48,8 +49,8 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             {
               id: "retention" as const,
               title: "Retention Flow",
-              status: "soon" as const,
-              text: "Not built yet. This tab is ready for requirements when you share them.",
+              status: "partial" as const,
+              text: "Daily renewal Task within 60 days of yearly End Date. More stages still to come.",
             },
           ].map((item) => (
             <button
@@ -83,8 +84,10 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
         <Card>
           <ReqList
             items={[
+              "CS Assignment Pool: each record is one CS Specialist; Accounts link via CS Specialists.",
+              "If a Pool record is deleted, redistributes its Accounts to remaining specialists with Round Robin.",
               "Create a Refund from Sales Orders Uploading with one button.",
-              "Refund Owner must be the Account’s CS Specialist.",
+              "Refund Owner must be the Account’s CS Specialist (from the Pool → CS Users).",
               "Map Account and the first Contact (name, email, phone) onto the Refund.",
               "Only Active subscriptions can be refunded.",
               "Monthly: refund allowed if today is within 3 days of Start Date.",
@@ -94,6 +97,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               "If the form is sent and not submitted in 2 days, send a reminder email.",
               "When the customer submits the form, update bank fields and email the CS Owner.",
               "CS then notifies Finance; Finance pays and confirms; CS and customer are notified (Finance path next).",
+              "Yearly Active SOs within 60 days of Subscription End Date get a Renewal follow-up Task for the CS Owner.",
               "WhatsApp for the form can come later — email works now.",
             ]}
           />
@@ -103,13 +107,16 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
       <Section title="What is live in Zoho right now">
         <div className="grid gap-3">
           {[
+            ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Renewal Tasks"],
             ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
             ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
             ["Bank collection method", "Live — Manual Entry or Send Form to Customer"],
             ["Customer bank form + CS email", "Live — form updates Bank Name, Account, IBAN"],
             ["2-day reminder if form not submitted", "Live — based on Form Send Date"],
+            ["Renewal Task (yearly, ≤ 60 days to End Date)", "Live — daily schedule + CS Owner"],
+            ["Pool delete → Round Robin reassign", "Agreed — build next"],
             ["CS → Finance → done emails", "Not yet — next build"],
-            ["Retention automation", "Not yet"],
+            ["Retention stages (Contacted / Negotiation / …)", "Not yet"],
           ].map(([name, state]) => (
             <div
               key={name}

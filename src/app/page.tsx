@@ -74,7 +74,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-[var(--line)]/70 py-8 text-center text-sm text-[var(--ink-soft)]">
-        Updated 20 Aug 2026 · Built for client review
+        Updated 23 Aug 2026 · Built for client review
       </footer>
     </div>
   );
