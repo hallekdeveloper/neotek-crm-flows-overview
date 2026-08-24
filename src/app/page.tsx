@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { OverviewTab } from "../components/tabs/OverviewTab";
 import { AccountTab } from "../components/tabs/AccountTab";
+import { OnboardingTab } from "../components/tabs/OnboardingTab";
 import { CsTab } from "../components/tabs/CsTab";
 import { RefundTab } from "../components/tabs/RefundTab";
 import { RetentionTab } from "../components/tabs/RetentionTab";
@@ -10,6 +11,7 @@ import { RetentionTab } from "../components/tabs/RetentionTab";
 const tabs = [
   { id: "overview", label: "Overview" },
   { id: "account", label: "Account" },
+  { id: "onboarding", label: "Onboarding" },
   { id: "cs", label: "CS Flow" },
   { id: "refund", label: "Refund Flow" },
   { id: "retention", label: "Retention Flow" },
@@ -68,13 +70,14 @@ export default function Home() {
       <main className="mx-auto max-w-5xl px-5 py-10 md:px-8 md:py-14">
         {active === "overview" && <OverviewTab onGo={setActive} />}
         {active === "account" && <AccountTab />}
+        {active === "onboarding" && <OnboardingTab />}
         {active === "cs" && <CsTab />}
         {active === "refund" && <RefundTab />}
         {active === "retention" && <RetentionTab />}
       </main>
 
       <footer className="border-t border-[var(--line)]/70 py-8 text-center text-sm text-[var(--ink-soft)]">
-        Updated 23 Aug 2026 · Built for client review
+        Updated 24 Aug 2026 · Built for client review
       </footer>
     </div>
   );

@@ -55,6 +55,80 @@ function EmailCard({
   );
 }
 
+const REFUND_VIDEO_1 =
+  "https://workdrive.zohoexternal.sa/external/992edbdb110216287bca171af7d29eecb766c7b03f83fd6c64a92d7ef45e44e4";
+const REFUND_VIDEO_1_THUMB =
+  "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd5da08efda992f4d198bceb1bc1165b896?size=l";
+const REFUND_VIDEO_2 =
+  "https://workdrive.zohoexternal.sa/external/d9a2fab2061e88e75a4a7576c4b6fc0f67f85073268914eee080cedd58a5f349";
+const REFUND_VIDEO_2_THUMB =
+  "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd54d6212afe0e14e9b8174963116910cd4?size=l";
+
+function VideoCard({
+  href,
+  thumb,
+  label,
+  fileName,
+  note,
+  cta,
+}: {
+  href: string;
+  thumb: string;
+  label: string;
+  fileName: string;
+  note: string;
+  cta: string;
+}) {
+  return (
+    <Card>
+      <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-[var(--accent)] uppercase">
+        {label}
+      </p>
+      <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">{note}</p>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group mb-4 block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--paper)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      >
+        <div className="relative aspect-video w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={thumb}
+            alt={`${fileName} thumbnail`}
+            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+          />
+          <span className="absolute inset-0 bg-[linear-gradient(to_top,rgba(15,28,23,0.55),transparent_45%)]" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-[var(--accent)] shadow-lg transition group-hover:scale-105">
+              <svg
+                viewBox="0 0 24 24"
+                className="ml-1 h-7 w-7 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </span>
+          <span className="absolute bottom-4 left-4 right-4 flex flex-wrap items-end justify-between gap-2">
+            <span className="text-sm font-semibold text-white">{fileName}</span>
+            <span className="text-xs font-medium text-white/90">Opens on WorkDrive ↗</span>
+          </span>
+        </div>
+      </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+      >
+        {cta}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </Card>
+  );
+}
+
 export function RefundTab() {
   const today = new Date();
   today.setHours(12, 0, 0, 0);
@@ -77,11 +151,33 @@ export function RefundTab() {
   return (
     <div>
       <div className="mb-8 flex flex-wrap items-center gap-3">
-        <Badge tone="partial">Create + bank collection live</Badge>
+        <Badge tone="live">Create → bank → Finance live</Badge>
         <p className="text-sm text-[var(--ink-soft)]">
-          Full refund picture below — modules, fields, form, emails, and test cases.
+          Full refund picture — pipeline, two Zoho Forms, Finance Yes/No, emails,
+          workflows, and test videos.
         </p>
       </div>
+
+      <Section eyebrow="Demo · Testing videos" title="Refund Flow walkthrough">
+        <div className="grid gap-5">
+          <VideoCard
+            label="Video 1 · Flow overview"
+            fileName="Screen Recording 2026-08-18 175236.mp4"
+            href={REFUND_VIDEO_1}
+            thumb={REFUND_VIDEO_1_THUMB}
+            cta="Open video 1 — flow only"
+            note="Only watch the flow. Ignore any subscription Start Date shown or spoken in this recording — those dates are outdated. For complete testing, use Video 2."
+          />
+          <VideoCard
+            label="Video 2 · Complete testing"
+            fileName="Refund FLow.mp4"
+            href={REFUND_VIDEO_2}
+            thumb={REFUND_VIDEO_2_THUMB}
+            cta="Open video 2 — full testing"
+            note="Full testing walkthrough — use this video (with the Start Date cases below) for complete Refund testing."
+          />
+        </div>
+      </Section>
 
       {/* 1 Requirements */}
       <Section eyebrow="1 · Requirements" title="What the client asked for">
@@ -98,7 +194,10 @@ export function RefundTab() {
               "Bank details: Manual Entry OR email Zoho Form to customer.",
               "If form not submitted in 2 days → reminder email.",
               "When form is submitted → update bank fields + email CS Owner.",
-              "CS notifies Finance → Finance pays → confirm done → email CS + customer.",
+              "CS moves pipeline to Notify Finance → email Finance team (template: Refund Processing Required).",
+              "Finance responds Yes → Refund stage = Refund Done → notify CS Owner + customer.",
+              "Finance responds No → notify CS Owner (Refund Not Processed by Finance).",
+              "Two Zoho Forms: Bank Details Form + Refund Status.",
               "WhatsApp for form can come later (email works now).",
             ]}
           />
@@ -115,7 +214,8 @@ export function RefundTab() {
             ["Contacts", "First Contact under Account → Refund Contact, Email, Phone."],
             ["CS Assignment Pool", "CS Specialists lookup → CS Users = Refund Owner."],
             ["Refund", "Main refund ticket. Pipeline, bank details, emails."],
-            ["Zoho Forms", "Bank Details Form — customer fills IBAN etc."],
+            ["Zoho Forms — Bank Details Form", "Customer fills Bank Name / Account / IBAN (created Aug 17, 2026)."],
+            ["Zoho Forms — Refund Status", "Finance Yes/No response form (created Dec 31, 2025)."],
           ]}
         />
       </Section>
@@ -169,14 +269,20 @@ export function RefundTab() {
               {
                 id: "fin",
                 label: "Notify Finance",
-                sub: "CS action — coming next",
-                tone: "soon",
+                sub: "Email Finance team",
+                tone: "live",
+              },
+              {
+                id: "yn",
+                label: "Finance Yes / No",
+                sub: "Refund Status form",
+                tone: "live",
               },
               {
                 id: "pay",
-                label: "Finance pays + marks done",
-                sub: "Then email CS + customer",
-                tone: "soon",
+                label: "Refund Done or notify CS",
+                sub: "Yes → Done · No → Owner email",
+                tone: "live",
               },
             ]}
           />
@@ -272,15 +378,41 @@ export function RefundTab() {
           />
         </div>
 
+        <div className="mb-8">
+          <BranchDiagram
+            title="Notify Finance → Finance Yes / No (live)"
+            parent={{
+              id: "nf",
+              label: "Stage = Notify Finance",
+              tone: "live",
+            }}
+            leftLabel="Yes"
+            rightLabel="No"
+            left={{
+              id: "yes",
+              label: "Refund Done",
+              sub: "Update stage + email CS Owner + customer",
+              tone: "live",
+            }}
+            right={{
+              id: "no",
+              label: "Notify CS Owner",
+              sub: "Refund Not Processed by Finance",
+              tone: "live",
+            }}
+          />
+        </div>
+
         <div className="mb-2">
           <FlowDiagramRow
-            title="Refund Cycle pipeline (existing blueprint)"
+            title="Refund Pipeline (blueprint stages)"
             nodes={[
-              { id: "p1", label: "Backlog", tone: "live" },
-              { id: "p2", label: "In Contact", tone: "live" },
-              { id: "p3", label: "Eligible / Not Eligible", tone: "live" },
-              { id: "p4", label: "Waiting for Response", tone: "live" },
-              { id: "p5", label: "Compensation / Refund", tone: "live" },
+              { id: "p0", label: "NEW | Backlog", tone: "live" },
+              { id: "p1", label: "In Contact", tone: "live" },
+              { id: "p2", label: "Eligible / Not Eligible", tone: "live" },
+              { id: "p3", label: "Waiting for Response", tone: "live" },
+              { id: "p4", label: "Notify Finance", tone: "live" },
+              { id: "p5", label: "Compensation / Refund Done", tone: "live" },
               { id: "p6", label: "Ticket Closed", tone: "live" },
             ]}
           />
@@ -347,37 +479,59 @@ export function RefundTab() {
             ["Email / Phone", "From that Contact"],
             ["Subscription Number", "From Subscription ID"],
             ["Normal CR / FL Number / Unified CR", "From Customer CR"],
-            ["Pipeline", "Starts Backlog · Refund Cycle blueprint"],
+            ["Pipeline", "Starts NEW | Backlog · full Refund Pipeline below"],
             ["Refund Amount", "From Actual Paid Amount"],
             ["Expiration Date", "Last day of refund window (Start + 3 or 5)"],
             ["Missing Info for the Refund", "Eligibility summary note"],
             ["Bank Details Collection Method", "Manual Entry | Send Form to Customer"],
-            ["Bank Name / Bank Account Number / IBAN", "Manual or from Zoho Form"],
+            ["Bank Name / Bank Account Number / IBAN", "Manual or from Bank Details Form"],
             ["Form Send Date", "When form email is sent"],
             ["Bank Detail Submit", "Checkbox — checked when form submitted"],
+            ["Finance response (Yes / No)", "From Refund Status form — drives Done vs Owner notify"],
             ["Refund Reason / Compensation / Refunded?", "Filled by team in blueprint"],
           ]}
         />
       </Section>
 
       {/* 6 Blueprint */}
-      <Section eyebrow="6 · Pipeline" title="Refund Cycle blueprint stages">
+      <Section eyebrow="6 · Pipeline" title="Refund Pipeline stages">
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Existing Refund Cycle / Refund Pipeline on the Refund module. New
+          refunds start at <strong className="text-[var(--ink)]">NEW | Backlog</strong>.
+        </p>
         <Table
           headers={["Stage", "Meaning"]}
           rows={[
-            ["Backlog", "New refund — starting point"],
+            ["-None-", "Empty / not set"],
+            ["NEW | Backlog", "New refund — starting point after Create Refund"],
             ["In Contact", "CS contacting customer"],
-            ["Not Eligible for Refund", "Rejected"],
+            ["Not Eligible for Refund", "Rejected — not eligible"],
             ["Eligible", "Approved for refund"],
-            ["Waiting for Response", "Waiting (e.g. bank form)"],
-            ["Compensation", "Compensation path"],
-            ["Refund", "Payout path"],
-            ["Ticket Closed", "Finished"],
+            ["Waiting for Response", "Waiting (e.g. bank form from customer)"],
+            [
+              "Notify Finance",
+              "CS hands over to Finance → email Finance team (live)",
+            ],
+            ["Compensation", "Compensation path (alternative to cash refund)"],
+            ["Refund Done", "Payout completed (Finance Yes)"],
+            ["Ticket Closed", "Ticket finished"],
           ]}
         />
-        <p className="mt-3 text-sm text-[var(--ink-soft)]">
-          We reuse this existing blueprint — no second blueprint was created.
-        </p>
+        <div className="mt-6">
+          <Card>
+            <p className="mb-3 text-sm font-semibold text-[var(--ink)]">
+              Notify Finance → Finance Yes / No (live)
+            </p>
+            <ReqList
+              items={[
+                "When pipeline moves to Notify Finance → workflow Dev - Notify Finance Team sends email to Finance (template: Dev - Notify Finance Team for Refund and Review · subject Refund Processing Required).",
+                "Finance uses the Refund Status form to answer Yes or No.",
+                "Finance Yes → workflow Dev - Finance Response Yes, No… updates Refund stage to Refund Done → emails CS Owner (Refund Completed by Finance) and customer (Your Refund Has Been Processed).",
+                "Finance No → notify Refund Owner / CS (template: Dev - Notify CS Owner Refund Not Processed by Finance · subject Refund Not Processed by Finance).",
+              ]}
+            />
+          </Card>
+        </div>
       </Section>
 
       {/* 7 Bank paths */}
@@ -399,8 +553,26 @@ export function RefundTab() {
         />
       </Section>
 
-      {/* 8 Zoho Form */}
-      <Section eyebrow="8 · Zoho Form" title="Bank Details Form">
+      {/* 8 Zoho Forms */}
+      <Section eyebrow="8 · Zoho Forms" title="Two forms used in Refund">
+        <Table
+          headers={["Form", "Created", "Purpose"]}
+          rows={[
+            [
+              "Bank Details Form",
+              "Aug 17, 2026",
+              "Customer submits Bank Name, Account Number, IBAN. Prefills Refund / Contact. Updates bank fields + Bank Detail Submit.",
+            ],
+            [
+              "Refund Status",
+              "Dec 31, 2025",
+              "Finance responds Yes or No after Notify Finance. Yes → Refund Done; No → notify CS Owner.",
+            ],
+          ]}
+        />
+        <p className="mt-5 mb-3 text-sm font-semibold text-[var(--ink)]">
+          Bank Details Form — fields
+        </p>
         <p className="mb-3 text-sm text-[var(--ink-soft)]">
           Live form (example):{" "}
           <a
@@ -452,8 +624,59 @@ export function RefundTab() {
       </Section>
 
       {/* 10 Emails */}
-      <Section eyebrow="10 · Email templates" title="Emails in this flow">
-        <div className="space-y-4">
+      <Section eyebrow="10 · Email templates" title="Folder: Refund Templates (Setup → Templates)">
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          All templates are on the <strong className="text-[var(--ink)]">Refund</strong>{" "}
+          module under folder <strong className="text-[var(--ink)]">Refund Templates</strong>.
+        </p>
+        <Table
+          headers={["Template name", "Subject", "When used", "Status"]}
+          rows={[
+            [
+              "Refund — Bank Details Form Module",
+              "Action Required: Bank Details for Refund",
+              "Send Form to Customer",
+              "Live",
+            ],
+            [
+              "Dev - Notify CS - Customer submitted bank details",
+              "Customer submitted bank details",
+              "Customer submits Bank Details Form",
+              "Live",
+            ],
+            [
+              "Dev - Send Reminder… (workflow)",
+              "Reminder: bank details needed…",
+              "2 days after Form Send Date if not submitted",
+              "Live",
+            ],
+            [
+              "Dev - Notify Finance Team for Refund and Review",
+              "Refund Processing Required",
+              "Pipeline → Notify Finance",
+              "Live",
+            ],
+            [
+              "Dev - Notify CS Owner on Refund Completed by Finance",
+              "Refund Completed by Finance",
+              "Finance Yes → Refund Done",
+              "Live",
+            ],
+            [
+              "Dev - Notify Customer - Your Refund Has Been Processed",
+              "Your Refund Has Been Processed",
+              "Finance Yes → customer notified",
+              "Live",
+            ],
+            [
+              "Dev - Notify CS Owner Refund Not Processed by Finance",
+              "Refund Not Processed by Finance",
+              "Finance No → notify Owner",
+              "Live",
+            ],
+          ]}
+        />
+        <div className="mt-6 space-y-4">
           <EmailCard
             name="1 · Bank form to customer"
             to="Contact Email (Refund.Email)"
@@ -496,32 +719,30 @@ Neotek Finance`}
           <EmailCard
             name="3 · Notify CS — bank details received"
             to="Refund Owner (CS Specialist)"
-            subject="Bank details received — please review and hand over to Finance | {Refund Name}"
+            subject="Customer submitted bank details"
             status="live"
             body={`Dear {CS Owner},
 
 The customer has submitted bank details for refund {Refund Name}.
 
-Please review the Refund in CRM, confirm the details, then coordinate with Finance.
+Please review the Refund in CRM, confirm the details, then move the pipeline to Notify Finance when ready.
 
 • Account / Contact / Amount
 • Bank name / Account number / IBAN
-
-Next: notify Finance to process the payout.
 
 Regards,
 Neotek Refund System`}
           />
           <EmailCard
-            name="4 · Notify Finance (CS action)"
+            name="4 · Notify Finance Team"
             to="Finance mailbox"
-            subject="Refund ready for payout — {Refund Name}"
-            status="soon"
+            subject="Refund Processing Required"
+            status="live"
             body={`Dear Finance,
 
-CS has confirmed bank details for {Refund Name}.
+CS has moved refund {Refund Name} to Notify Finance.
 
-Please process the payout, then mark the refund as done.
+Please review and respond Yes (process payout → Refund Done) or No (not processed → notify CS Owner) via the Refund Status form / CRM.
 
 • Amount / Bank / IBAN / CRM link
 
@@ -529,28 +750,111 @@ Regards,
 Neotek`}
           />
           <EmailCard
-            name="5 · Refund completed — CS + customer"
-            to="CS Owner and Customer"
-            subject="Refund completed — {Refund Name}"
-            status="soon"
-            body={`Dear {Name},
+            name="5 · Finance Yes — CS Owner"
+            to="Refund Owner (CS Specialist)"
+            subject="Refund Completed by Finance"
+            status="live"
+            body={`Dear {CS Owner},
+
+Finance has completed refund {Refund Name}. Stage is updated to Refund Done.
+
+Regards,
+Neotek Refund System`}
+          />
+          <EmailCard
+            name="6 · Finance Yes — Customer"
+            to="Contact Email"
+            subject="Your Refund Has Been Processed"
+            status="live"
+            body={`Dear {Contact Name},
 
 Your refund {Refund Name} has been processed.
-
-Amount: {Amount}
-Reference: {Transaction ref if any}
 
 The amount should appear in your account within a few business days.
 
 Regards,
 Neotek Finance`}
           />
+          <EmailCard
+            name="7 · Finance No — CS Owner"
+            to="Refund Owner (CS Specialist)"
+            subject="Refund Not Processed by Finance"
+            status="live"
+            body={`Dear {CS Owner},
+
+Finance did not process refund {Refund Name}. Please review and follow up.
+
+Regards,
+Neotek Refund System`}
+          />
         </div>
+      </Section>
+
+      {/* 10b Workflows */}
+      <Section eyebrow="10b · Workflows" title="Refund module workflow rules (live)">
+        <Table
+          headers={["Rule", "Execute on", "What it does"]}
+          rows={[
+            [
+              "Dev - Refund — Bank Details Form",
+              "Modified",
+              "Send Bank Details Form email / related bank-form actions",
+            ],
+            [
+              "Dev - Notify CS Owner Custome…",
+              "Modified",
+              "Email CS when customer submitted bank details",
+            ],
+            [
+              "Dev - Send Reminder Email after…",
+              "Form Send Date (+2 days)",
+              "Reminder if Bank Detail Submit still empty",
+            ],
+            [
+              "Dev - Notify Finance Team",
+              "Modified (→ Notify Finance)",
+              "Email Finance: Refund Processing Required",
+            ],
+            [
+              "Dev - Finance Response Yes, No …",
+              "Modified",
+              "Yes → Refund Done + CS/customer emails · No → notify Owner",
+            ],
+          ]}
+        />
       </Section>
 
       {/* 11 Test cases */}
       <Section eyebrow="11 · Testing" title="Test cases — use these Start Dates">
-        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+        <Card>
+          <p className="mb-3 text-sm leading-relaxed text-[var(--ink-soft)]">
+            <strong className="text-[var(--ink)]">Video 1</strong> — only watch the flow;
+            ignore subscription Start Date in that recording.{" "}
+            <strong className="text-[var(--ink)]">Video 2</strong> — complete testing.
+            Then run the Start Date cases below.
+          </p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
+            <a
+              href={REFUND_VIDEO_1}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+            >
+              Video 1 — flow only (ignore Start Date)
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              href={REFUND_VIDEO_2}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+            >
+              Video 2 — complete testing (Refund FLow.mp4)
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </Card>
+        <p className="mt-6 mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
           Today = <strong className="text-[var(--ink)]">{todayLabel}</strong>. Set Status =
           Active, set Payment Frequency, change only Start Date, then click Create Refund.
           Close any open Refund for that subscription first. End Date can stay as-is.
@@ -579,14 +883,16 @@ Neotek Finance`}
           {[
             ["Create Refund button + eligibility 3/5", "Live"],
             ["Account / Contact / CS Owner mapping", "Live"],
-            ["Refund Cycle blueprint", "Live (existing)"],
+            ["Refund Pipeline (NEW | Backlog → … → Ticket Closed)", "Live"],
             ["Manual Entry bank details", "Live"],
-            ["Send Form + customer email", "Live"],
+            ["Send Form + customer email (Bank Details Form)", "Live"],
             ["Form → Bank fields + related list", "Live"],
             ["CS email on form submit", "Live"],
             ["2-day reminder workflow", "Live"],
-            ["CS → Finance notify action", "Not yet"],
-            ["Finance marks done + CS/customer emails", "Not yet"],
+            ["Notify Finance → email Finance team", "Live"],
+            ["Finance Yes → Refund Done + CS + customer emails", "Live"],
+            ["Finance No → notify CS Owner", "Live"],
+            ["Refund Status form (Finance Yes/No)", "Live"],
             ["WhatsApp form message", "Later (email only now)"],
           ].map(([name, state]) => (
             <div

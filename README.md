@@ -13,8 +13,9 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## Live
 
-- Site: https://neotek-crm-flows-overview.vercel.app
+- Site: https://neotek-crm-flows-overview-three.vercel.app
 - GitHub: https://github.com/hallekdeveloper/neotek-crm-flows-overview
+- Deploy: `vercel --prod --yes --scope muhammad-waqqas-projects`
 
 ## Tabs
 
@@ -22,6 +23,7 @@ Open [http://localhost:3000](http://localhost:3000)
 |---|---|
 | Overview | All requirements + what is live |
 | Account | Account chain + CS Assignment Pool + Round Robin on delete |
+| Onboarding | Qaema Bookings + Survey journey, fields, diagrams |
 | CS Flow | Pool ownership, Round Robin rule, Refund bank path, what is live |
 | Refund Flow | Create, eligibility 3/5 days, bank form |
 | Retention Flow | Renewal Task status (update when stages are built) |
