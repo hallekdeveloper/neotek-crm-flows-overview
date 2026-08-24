@@ -1,0 +1,13 @@
+---
+description: Canonical live URL is neotek-crm-flows-overview-three.vercel.app only
+alwaysApply: true
+---
+
+# Overview site — always `-three`
+
+**Live URL (only):** https://neotek-crm-flows-overview-three.vercel.app/
+
+Source: this `overview-app` folder.  
+Deploy: `vercel --prod --yes --scope muhammad-waqqas-projects`
+
+Never treat other Vercel overview URLs as the client docs site unless explicitly requested.
