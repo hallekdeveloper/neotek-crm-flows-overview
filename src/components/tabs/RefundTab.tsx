@@ -63,6 +63,8 @@ const REFUND_VIDEO_2 =
   "https://workdrive.zohoexternal.sa/external/d9a2fab2061e88e75a4a7576c4b6fc0f67f85073268914eee080cedd58a5f349";
 const REFUND_VIDEO_2_THUMB =
   "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd54d6212afe0e14e9b8174963116910cd4?size=l";
+const REFUND_VIDEO_3 =
+  "https://workdrive.zohoexternal.sa/external/43e33770dbff069117655ada22ddfc02d011d33372065aeeb2c0c9e0828b629b";
 
 function VideoCard({
   href,
@@ -73,7 +75,7 @@ function VideoCard({
   cta,
 }: {
   href: string;
-  thumb: string;
+  thumb?: string;
   label: string;
   fileName: string;
   note: string;
@@ -92,12 +94,16 @@ function VideoCard({
         className="group mb-4 block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--paper)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         <div className="relative aspect-video w-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={thumb}
-            alt={`${fileName} thumbnail`}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-          />
+          {thumb ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={thumb}
+              alt={`${fileName} thumbnail`}
+              className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="h-full w-full bg-[linear-gradient(135deg,#1a3a32_0%,#0f1c17_55%,#2d5a4a_100%)]" />
+          )}
           <span className="absolute inset-0 bg-[linear-gradient(to_top,rgba(15,28,23,0.55),transparent_45%)]" />
           <span className="absolute inset-0 flex items-center justify-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-[var(--accent)] shadow-lg transition group-hover:scale-105">
@@ -161,12 +167,19 @@ export function RefundTab() {
       <Section eyebrow="Demo · Testing videos" title="Refund Flow walkthrough">
         <div className="grid gap-5">
           <VideoCard
+            label="Video 3 · Latest walkthrough (recommended)"
+            fileName="Neotek Tasks.mp4"
+            href={REFUND_VIDEO_3}
+            cta="Open latest refund walkthrough"
+            note="Latest client reference video — Refund flow walkthrough from Sales Orders Uploading (Create Refund button and related steps)."
+          />
+          <VideoCard
             label="Video 1 · Flow overview"
             fileName="Screen Recording 2026-08-18 175236.mp4"
             href={REFUND_VIDEO_1}
             thumb={REFUND_VIDEO_1_THUMB}
             cta="Open video 1 — flow only"
-            note="Only watch the flow. Ignore any subscription Start Date shown or spoken in this recording — those dates are outdated. For complete testing, use Video 2."
+            note="Only watch the flow. Ignore any subscription Start Date shown or spoken in this recording — those dates are outdated. Prefer Video 3 for current behaviour."
           />
           <VideoCard
             label="Video 2 · Complete testing"
@@ -174,7 +187,7 @@ export function RefundTab() {
             href={REFUND_VIDEO_2}
             thumb={REFUND_VIDEO_2_THUMB}
             cta="Open video 2 — full testing"
-            note="Full testing walkthrough — use this video (with the Start Date cases below) for complete Refund testing."
+            note="Full testing walkthrough — use with the Start Date cases below. Prefer Video 3 if you only need the latest overview."
           />
         </div>
       </Section>
@@ -828,12 +841,22 @@ Neotek Refund System`}
       <Section eyebrow="11 · Testing" title="Test cases — use these Start Dates">
         <Card>
           <p className="mb-3 text-sm leading-relaxed text-[var(--ink-soft)]">
-            <strong className="text-[var(--ink)]">Video 1</strong> — only watch the flow;
-            ignore subscription Start Date in that recording.{" "}
+            <strong className="text-[var(--ink)]">Video 3</strong> — latest walkthrough
+            (recommended). <strong className="text-[var(--ink)]">Video 1</strong> — flow
+            only; ignore subscription Start Date.{" "}
             <strong className="text-[var(--ink)]">Video 2</strong> — complete testing.
             Then run the Start Date cases below.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
+            <a
+              href={REFUND_VIDEO_3}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+            >
+              Video 3 — latest (Neotek Tasks.mp4)
+              <span aria-hidden="true">↗</span>
+            </a>
             <a
               href={REFUND_VIDEO_1}
               target="_blank"

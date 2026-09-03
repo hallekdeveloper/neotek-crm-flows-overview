@@ -58,7 +58,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               id: "refund" as const,
               title: "Refund Flow",
               status: "live" as const,
-              text: "Create → bank forms → Notify Finance → Yes/No → Done. Testing videos on Refund tab.",
+              text: "Create → bank forms → Notify Finance → Yes/No → Done. Latest walkthrough video on Refund tab.",
             },
             {
               id: "retention" as const,
@@ -142,6 +142,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             ["CS Specialists changed → Welcome Task + reassign Tasks", "Live — highlighted"],
             ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Renewal Tasks"],
             ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
+            ["Refund walkthrough video (Neotek Tasks.mp4)", "Live — Refund tab Video 3"],
             ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
             ["Bank collection method", "Live — Manual Entry or Send Form to Customer"],
             ["Customer bank form + CS email", "Live — form updates Bank Name, Account, IBAN"],
