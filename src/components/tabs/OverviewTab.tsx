@@ -28,7 +28,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               },
               { id: "c", label: "CS Flow", sub: "Pool · Refund · Renew", tone: "partial" },
               { id: "r", label: "Refund Flow", sub: "Create → bank → Finance", tone: "live" },
-              { id: "t", label: "Retention", sub: "Renewal task live", tone: "partial" },
+              { id: "t", label: "Retention", sub: "Retention module live", tone: "live" },
             ]}
           />
           <DiagramLegend />
@@ -63,8 +63,8 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             {
               id: "retention" as const,
               title: "Retention Flow",
-              status: "partial" as const,
-              text: "REN-01: daily Active yearly SO within 60 days → Renewal Task for CS. 5 test cases on tab.",
+              status: "live" as const,
+              text: "Button + daily schedule: Active yearly SO within 60 days → Retention record (Backlog) for CS. See Retention tab.",
             },
           ].map((item) => (
             <button
@@ -121,7 +121,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               "When the customer submits the form, update bank fields and email the CS Owner.",
               "CS moves pipeline to Notify Finance → email Finance; Finance Yes → Refund Done (+ CS + customer emails); Finance No → notify CS Owner.",
               "Two Zoho Forms: Bank Details Form (customer) + Refund Status (Finance Yes/No).",
-              "Yearly Active SOs within 60 days of Subscription End Date get a Renewal follow-up Task for the CS Owner (REN-01 daily schedule). See Retention tab for 5 test cases.",
+              "Yearly Active SOs within 60 days of Subscription End Date create a Retention module record (Pipeline = Backlog) for the CS Owner — via Retention button and REN-01 daily schedule. Monthly is skipped. See Retention tab.",
               "WhatsApp for the refund form can come later — email works now.",
             ]}
           />
@@ -140,7 +140,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             ["CS follow-up Task when Stage is not Healthy", "Live — Stages 1–4 only; Healthy = no Task"],
             ["Welcome Task on Round Robin assign", "Live — Account create"],
             ["CS Specialists changed → Welcome Task + reassign Tasks", "Live — highlighted"],
-            ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Renewal Tasks"],
+            ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Retention"],
             ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
             ["Refund walkthrough video (Neotek Tasks.mp4)", "Live — Refund tab Video 3"],
             ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
@@ -150,9 +150,9 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             ["Notify Finance → Finance Yes/No (Refund Status form)", "Live"],
             ["Finance Yes → Refund Done + CS + customer emails", "Live"],
             ["Finance No → notify CS Owner", "Live"],
-            ["Renewal Task (REN-01 yearly, ≤ 60 days to End Date)", "Live — daily + CS Owner + 5 test cases"],
+            ["Retention button on Sales Orders Uploading", "Live — creates Retention record (Backlog)"],
+            ["Retention schedule REN-01 (yearly, ≤ 60 days to End Date)", "Live — creates Retention · CS Owner"],
             ["Pool delete → Round Robin reassign", "Agreed — build next"],
-            ["Retention stages (Contacted / Negotiation / …)", "Not yet"],
           ].map(([name, state]) => (
             <div
               key={name}
