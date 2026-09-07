@@ -16,7 +16,7 @@ const toneClass = {
 
 function ArrowDown() {
   return (
-    <div className="flex flex-col items-center py-1" aria-hidden>
+    <div className="flow-arrow flex flex-col items-center py-1" aria-hidden>
       <div className="h-5 w-px bg-[var(--accent)]/50" />
       <svg width="14" height="10" viewBox="0 0 14 10" className="text-[var(--accent)]">
         <path d="M7 10L0 0h14L7 10z" fill="currentColor" />
@@ -27,7 +27,7 @@ function ArrowDown() {
 
 function ArrowRight() {
   return (
-    <div className="hidden items-center px-1 md:flex" aria-hidden>
+    <div className="flow-arrow hidden items-center px-1 md:flex" aria-hidden>
       <div className="h-px w-6 bg-[var(--accent)]/50" />
       <svg width="10" height="14" viewBox="0 0 10 14" className="text-[var(--accent)]">
         <path d="M10 7L0 0v14L10 7z" fill="currentColor" />
@@ -40,7 +40,7 @@ function NodeBox({ node }: { node: DiagramNode }) {
   const tone = node.tone ?? "neutral";
   return (
     <div
-      className={`min-w-[140px] max-w-[200px] rounded-xl border-2 px-3.5 py-3 text-center shadow-[0_8px_24px_-18px_rgba(15,28,23,0.45)] ${toneClass[tone]}`}
+      className={`flow-node min-w-[140px] max-w-[200px] rounded-xl border-2 px-3.5 py-3 text-center shadow-[0_8px_24px_-18px_rgba(15,28,23,0.45)] ${toneClass[tone]}`}
     >
       <p className="text-sm font-semibold leading-snug">{node.label}</p>
       {node.sub && (

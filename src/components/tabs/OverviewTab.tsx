@@ -2,7 +2,7 @@ import { FlowDiagramRow, DiagramLegend } from "../Diagram";
 import { Badge, Card, ReqList, Section } from "../ui";
 
 type Go = (
-  id: "account" | "onboarding" | "cs" | "refund" | "retention",
+  id: "account" | "onboarding" | "cs" | "refund" | "retention" | "videos",
 ) => void;
 
 export function OverviewTab({ onGo }: { onGo: Go }) {
@@ -65,6 +65,12 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               title: "Retention Flow",
               status: "live" as const,
               text: "Button + daily schedule: Active yearly SO within 60 days → Retention record (Backlog) for CS. See Retention tab.",
+            },
+            {
+              id: "videos" as const,
+              title: "Video Guides",
+              status: "live" as const,
+              text: "All walkthrough videos in one place — Ziwo, Webinar, Appointment, WhatsApp, Assist, Refund, Retention — with short descriptions and flow diagrams.",
             },
           ].map((item) => (
             <button
@@ -142,7 +148,6 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             ["CS Specialists changed → Welcome Task + reassign Tasks", "Live — highlighted"],
             ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Retention"],
             ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
-            ["Refund walkthrough video (Neotek Tasks.mp4)", "Live — Refund tab Video 3"],
             ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
             ["Bank collection method", "Live — Manual Entry or Send Form to Customer"],
             ["Customer bank form + CS email", "Live — form updates Bank Name, Account, IBAN"],
@@ -152,6 +157,9 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
             ["Finance No → notify CS Owner", "Live"],
             ["Retention button on Sales Orders Uploading", "Live — creates Retention record (Backlog)"],
             ["Retention schedule REN-01 (yearly, ≤ 60 days to End Date)", "Live — creates Retention · CS Owner"],
+            ["Retention walkthrough video (Retention Flow Video.mp4)", "Live — Retention tab"],
+            ["Video Guides tab (all demos + diagrams)", "Live — Video Guides tab"],
+            ["Ziwo click-to-call from CRM (video)", "Live — Video Guides · top"],
             ["Pool delete → Round Robin reassign", "Agreed — build next"],
           ].map(([name, state]) => (
             <div

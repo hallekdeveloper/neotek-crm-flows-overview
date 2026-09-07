@@ -18,6 +18,67 @@ function addDays(base: Date, n: number) {
   return d;
 }
 
+const RETENTION_VIDEO =
+  "https://workdrive.zohoexternal.sa/external/8fc4f49e9f083aeb1cb2d0e7266d5a38c692ccf95107eb0dcb1d15f903e20b6d";
+
+function VideoCard({
+  href,
+  label,
+  fileName,
+  note,
+  cta,
+}: {
+  href: string;
+  label: string;
+  fileName: string;
+  note: string;
+  cta: string;
+}) {
+  return (
+    <Card>
+      <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-[var(--accent)] uppercase">
+        {label}
+      </p>
+      <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">{note}</p>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group mb-4 block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--paper)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      >
+        <div className="relative aspect-video w-full">
+          <div className="h-full w-full bg-[linear-gradient(135deg,#1a3a32_0%,#0f1c17_55%,#2d5a4a_100%)]" />
+          <span className="absolute inset-0 bg-[linear-gradient(to_top,rgba(15,28,23,0.55),transparent_45%)]" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-[var(--accent)] shadow-lg transition group-hover:scale-105">
+              <svg
+                viewBox="0 0 24 24"
+                className="ml-1 h-7 w-7 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </span>
+          <span className="absolute bottom-4 left-4 right-4 flex flex-wrap items-end justify-between gap-2">
+            <span className="text-sm font-semibold text-white">{fileName}</span>
+            <span className="text-xs font-medium text-white/90">Opens on WorkDrive ↗</span>
+          </span>
+        </div>
+      </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+      >
+        {cta}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </Card>
+  );
+}
+
 export function RetentionTab() {
   const today = new Date();
   today.setHours(12, 0, 0, 0);
@@ -33,6 +94,16 @@ export function RetentionTab() {
           Task) for yearly subscriptions in the 60-day window.
         </p>
       </div>
+
+      <Section eyebrow="Demo · Testing video" title="Retention Flow walkthrough">
+        <VideoCard
+          label="Retention walkthrough"
+          fileName="Retention Flow Video.mp4"
+          href={RETENTION_VIDEO}
+          cta="Open Retention Flow video"
+          note="Walkthrough of Retention on Sales Orders Uploading — button and schedule create a Retention record (Backlog) for yearly subscriptions in the 60-day window."
+        />
+      </Section>
 
       <Section eyebrow="1 · Overview" title="What Retention does today">
         <p className="mb-5 max-w-2xl leading-relaxed text-[var(--ink-soft)]">

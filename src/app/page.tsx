@@ -7,6 +7,7 @@ import { OnboardingTab } from "../components/tabs/OnboardingTab";
 import { CsTab } from "../components/tabs/CsTab";
 import { RefundTab } from "../components/tabs/RefundTab";
 import { RetentionTab } from "../components/tabs/RetentionTab";
+import { VideosTab } from "../components/tabs/VideosTab";
 
 const tabs = [
   { id: "overview", label: "Overview" },
@@ -15,6 +16,7 @@ const tabs = [
   { id: "cs", label: "CS Flow" },
   { id: "refund", label: "Refund Flow" },
   { id: "retention", label: "Retention Flow" },
+  { id: "videos", label: "Video Guides" },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
@@ -74,10 +76,11 @@ export default function Home() {
         {active === "cs" && <CsTab />}
         {active === "refund" && <RefundTab />}
         {active === "retention" && <RetentionTab />}
+        {active === "videos" && <VideosTab />}
       </main>
 
       <footer className="border-t border-[var(--line)]/70 py-8 text-center text-sm text-[var(--ink-soft)]">
-        Updated 24 Aug 2026 · Built for client review
+        Updated 7 Sep 2026 · Built for client review
       </footer>
     </div>
   );

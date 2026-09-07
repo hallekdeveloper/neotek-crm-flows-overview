@@ -63,8 +63,6 @@ const REFUND_VIDEO_2 =
   "https://workdrive.zohoexternal.sa/external/d9a2fab2061e88e75a4a7576c4b6fc0f67f85073268914eee080cedd58a5f349";
 const REFUND_VIDEO_2_THUMB =
   "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd54d6212afe0e14e9b8174963116910cd4?size=l";
-const REFUND_VIDEO_3 =
-  "https://workdrive.zohoexternal.sa/external/43e33770dbff069117655ada22ddfc02d011d33372065aeeb2c0c9e0828b629b";
 
 function VideoCard({
   href,
@@ -167,19 +165,12 @@ export function RefundTab() {
       <Section eyebrow="Demo · Testing videos" title="Refund Flow walkthrough">
         <div className="grid gap-5">
           <VideoCard
-            label="Video 3 · Latest walkthrough (recommended)"
-            fileName="Neotek Tasks.mp4"
-            href={REFUND_VIDEO_3}
-            cta="Open latest refund walkthrough"
-            note="Latest client reference video — Refund flow walkthrough from Sales Orders Uploading (Create Refund button and related steps)."
-          />
-          <VideoCard
             label="Video 1 · Flow overview"
             fileName="Screen Recording 2026-08-18 175236.mp4"
             href={REFUND_VIDEO_1}
             thumb={REFUND_VIDEO_1_THUMB}
             cta="Open video 1 — flow only"
-            note="Only watch the flow. Ignore any subscription Start Date shown or spoken in this recording — those dates are outdated. Prefer Video 3 for current behaviour."
+            note="Only watch the flow. Ignore any subscription Start Date shown or spoken in this recording — those dates are outdated."
           />
           <VideoCard
             label="Video 2 · Complete testing"
@@ -187,7 +178,7 @@ export function RefundTab() {
             href={REFUND_VIDEO_2}
             thumb={REFUND_VIDEO_2_THUMB}
             cta="Open video 2 — full testing"
-            note="Full testing walkthrough — use with the Start Date cases below. Prefer Video 3 if you only need the latest overview."
+            note="Full testing walkthrough — use with the Start Date cases below."
           />
         </div>
       </Section>
@@ -841,22 +832,12 @@ Neotek Refund System`}
       <Section eyebrow="11 · Testing" title="Test cases — use these Start Dates">
         <Card>
           <p className="mb-3 text-sm leading-relaxed text-[var(--ink-soft)]">
-            <strong className="text-[var(--ink)]">Video 3</strong> — latest walkthrough
-            (recommended). <strong className="text-[var(--ink)]">Video 1</strong> — flow
-            only; ignore subscription Start Date.{" "}
+            <strong className="text-[var(--ink)]">Video 1</strong> — flow only; ignore
+            subscription Start Date.{" "}
             <strong className="text-[var(--ink)]">Video 2</strong> — complete testing.
             Then run the Start Date cases below.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
-            <a
-              href={REFUND_VIDEO_3}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-            >
-              Video 3 — latest (Neotek Tasks.mp4)
-              <span aria-hidden="true">↗</span>
-            </a>
             <a
               href={REFUND_VIDEO_1}
               target="_blank"
