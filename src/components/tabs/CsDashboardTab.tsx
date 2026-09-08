@@ -1,3 +1,4 @@
+import { KpiSyncAnimation } from "../KpiSyncAnimation";
 import { Badge, Card, Section } from "../ui";
 
 const DASHBOARD =
@@ -21,6 +22,10 @@ export function CsDashboardTab() {
           in Zoho Analytics</strong> (workspace: X Analytics) and published as
           open views for the team.
         </p>
+      </div>
+
+      <div className="mb-10">
+        <KpiSyncAnimation />
       </div>
 
       <Section eyebrow="Main dashboard" title="Customer Success Dashboard">
