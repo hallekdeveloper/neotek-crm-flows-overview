@@ -8,12 +8,16 @@ const VIDEOS = {
   ziwoThumb: "/thumbs/ziwo-crm-call-thumb.png",
   webinar:
     "https://workdrive.zohoexternal.sa/file/adll7c447a5c61a884dce8872ceabae9a6489",
+  webinarThumb: "/thumbs/webinar-crm-thumb.png",
   appointment:
     "https://workdrive.zohoexternal.sa/file/adll71d540ae1c03c453281f53bfc8f830195",
+  appointmentThumb: "/thumbs/appointment-meeting-thumb.png",
   whatsapp:
     "https://workdrive.zohoexternal.sa/file/adll7294294161e9946949d7b28d6feecad21",
+  whatsappThumb: "/thumbs/whatsapp-desk-crm-thumb.png",
   assist:
     "https://workdrive.zohoexternal.sa/file/adll76d9ce4e920d642a09276da2ec218ded5",
+  assistThumb: "/thumbs/assist-remote-thumb.png",
   refund1:
     "https://workdrive.zohoexternal.sa/external/992edbdb110216287bca171af7d29eecb766c7b03f83fd6c64a92d7ef45e44e4",
   refund1Thumb:
@@ -24,6 +28,7 @@ const VIDEOS = {
     "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd54d6212afe0e14e9b8174963116910cd4?size=l",
   retention:
     "https://workdrive.zohoexternal.sa/external/8fc4f49e9f083aeb1cb2d0e7266d5a38c692ccf95107eb0dcb1d15f903e20b6d",
+  retentionThumb: "/thumbs/retention-flow-thumb.png",
 } as const;
 
 const FLOW_ZIWO: StoryStep[] = [
@@ -460,6 +465,7 @@ export function VideosTab() {
         ]}
         result="Create webinar → share Registration URL or invite Contacts → person registers → Contact linked → host launches from CRM."
         href={VIDEOS.webinar}
+        thumb={VIDEOS.webinarThumb}
         fileName="Zoho Webinar + CRM.mp4"
         cta="Open Webinar walkthrough"
         flowTitle="Webinar — end to end"
@@ -479,6 +485,7 @@ export function VideosTab() {
         ]}
         result="Team schedules and follows up from the Contact record in one place."
         href={VIDEOS.appointment}
+        thumb={VIDEOS.appointmentThumb}
         fileName="Appointment → Meeting.mp4"
         cta="Open Appointment walkthrough"
         flowTitle="Appointment — Contact to Meeting"
@@ -497,6 +504,7 @@ export function VideosTab() {
         ]}
         result="From the first message: support has a ticket, sales/CRM has a contact — both stay in sync."
         href={VIDEOS.whatsapp}
+        thumb={VIDEOS.whatsappThumb}
         fileName="WhatsApp → Desk + CRM.mp4"
         cta="Open WhatsApp walkthrough"
         flowTitle="WhatsApp — message to Desk + CRM"
@@ -517,6 +525,7 @@ export function VideosTab() {
         ]}
         result="The whole session stays inside CRM on the Contact record."
         href={VIDEOS.assist}
+        thumb={VIDEOS.assistThumb}
         fileName="Zoho Assist from CRM.mp4"
         cta="Open Zoho Assist walkthrough"
         flowTitle="Zoho Assist — Contact to remote help"
@@ -574,6 +583,7 @@ export function VideosTab() {
         ]}
         result="CS works the Retention record toward renew / churn. Full rules are on the Retention Flow tab."
         href={VIDEOS.retention}
+        thumb={VIDEOS.retentionThumb}
         fileName="Retention Flow Video.mp4"
         cta="Open Retention walkthrough"
         flowTitle="Retention — SO to Retention record"
