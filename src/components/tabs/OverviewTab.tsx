@@ -62,12 +62,6 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               text: "CS / Health Scores on Accounts, Stage 1–6, Round Robin assign, Tasks. Pool delete next.",
             },
             {
-              id: "cs-dashboard" as const,
-              title: "CS Dashboard",
-              status: "live" as const,
-              text: "Live Zoho Analytics Customer Success dashboard + Accounts Tasks by Status and Accounts by CS Specialist reports.",
-            },
-            {
               id: "refund" as const,
               title: "Refund Flow",
               status: "live" as const,
@@ -84,6 +78,12 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               title: "Video Guides",
               status: "live" as const,
               text: "All walkthrough videos in one place — Ziwo, Webinar, Appointment, WhatsApp, Assist, Refund, Retention — with short descriptions and flow diagrams.",
+            },
+            {
+              id: "cs-dashboard" as const,
+              title: "Dashboards & KPIs",
+              status: "live" as const,
+              text: "Live Zoho Analytics Customer Success dashboard + Accounts Tasks by Status and Accounts by CS Specialist reports.",
             },
           ].map((item) => (
             <button

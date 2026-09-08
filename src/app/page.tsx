@@ -15,10 +15,10 @@ const tabs = [
   { id: "account", label: "Account" },
   { id: "onboarding", label: "Onboarding" },
   { id: "cs", label: "CS Flow" },
-  { id: "cs-dashboard", label: "CS Dashboard" },
   { id: "refund", label: "Refund Flow" },
   { id: "retention", label: "Retention Flow" },
   { id: "videos", label: "Video Guides" },
+  { id: "cs-dashboard", label: "Dashboards & KPIs" },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
@@ -88,10 +88,10 @@ export default function Home() {
         {active === "account" && <AccountTab />}
         {active === "onboarding" && <OnboardingTab />}
         {active === "cs" && <CsTab />}
-        {active === "cs-dashboard" && <CsDashboardTab />}
         {active === "refund" && <RefundTab />}
         {active === "retention" && <RetentionTab />}
         {active === "videos" && <VideosTab />}
+        {active === "cs-dashboard" && <CsDashboardTab />}
       </main>
 
       <footer className="border-t border-[var(--line)]/70 py-8 text-center text-sm text-[var(--ink-soft)]">
