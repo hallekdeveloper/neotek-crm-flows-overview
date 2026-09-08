@@ -148,42 +148,55 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
       </Section>
 
       <Section title="What is live in Zoho right now">
-        <div className="grid gap-3">
-          {[
-            ["Onboarding — Account create → 5 min → Onboardings_2", "Live — Dev workflow"],
-            ["Onboarding — Round Robin + Welcome Call + Bookings + Survey", "Live — Qaema"],
-            ["Account → Entered Onboarding = New on create", "Live"],
-            ["Account → CS Specialist Round Robin on create", "Live — Welcome Task"],
-            ["Account CS / Health Scores → Stage 1–6 + Health Score", "Live — create + edit"],
-            ["CS / Health Scores edit → close all CS Stage Tasks + new Task", "Live — any stage; Close By System; skip Sales Order / manual"],
-            ["CS follow-up Task when Stage is not Healthy", "Live — Stages 1–4 only; Healthy = no Task"],
-            ["Welcome Task on Round Robin assign", "Live — Account create"],
-            ["CS Specialists changed → Welcome Task + reassign Tasks", "Live — highlighted"],
-            ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Retention"],
-            ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
-            ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
-            ["Bank collection method", "Live — Manual Entry or Send Form to Customer"],
-            ["Customer bank form + CS email", "Live — form updates Bank Name, Account, IBAN"],
-            ["2-day reminder if form not submitted", "Live — based on Form Send Date"],
-            ["Notify Finance → Finance Yes/No (Refund Status form)", "Live"],
-            ["Finance Yes → Refund Done + CS + customer emails", "Live"],
-            ["Finance No → notify CS Owner", "Live"],
-            ["Retention button on Sales Orders Uploading", "Live — creates Retention record (Backlog)"],
-            ["Retention schedule REN-01 (yearly, ≤ 60 days to End Date)", "Live — creates Retention · CS Owner"],
-            ["Retention walkthrough video (Retention Flow Video.mp4)", "Live — Retention tab"],
-            ["Video Guides tab (all demos + diagrams)", "Live — Video Guides tab"],
-            ["Ziwo click-to-call from CRM (video)", "Live — Video Guides · top"],
-            ["Pool delete → Round Robin reassign", "Agreed — build next"],
-          ].map(([name, state]) => (
-            <div
-              key={name}
-              className="flex flex-col gap-1 rounded-xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <span className="font-medium text-[var(--ink)]">{name}</span>
-              <span className="text-sm text-[var(--ink-soft)]">{state}</span>
-            </div>
-          ))}
-        </div>
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">
+          Full checklist of live items. Open the section below if you need the
+          detailed status list — the front of this page stays the big picture
+          and module cards.
+        </p>
+        <details className="rounded-2xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 open:pb-4">
+          <summary className="cursor-pointer list-none font-medium text-[var(--ink)] outline-none marker:content-none [&::-webkit-details-marker]:hidden">
+            <span className="flex items-center justify-between gap-3">
+              <span>Show live status checklist (24 items)</span>
+              <span className="text-sm text-[var(--ink-soft)]">Tap to expand</span>
+            </span>
+          </summary>
+          <div className="mt-4 grid gap-3">
+            {[
+              ["Onboarding — Account create → 5 min → Onboardings_2", "Live — Dev workflow"],
+              ["Onboarding — Round Robin + Welcome Call + Bookings + Survey", "Live — Qaema"],
+              ["Account → Entered Onboarding = New on create", "Live"],
+              ["Account → CS Specialist Round Robin on create", "Live — Welcome Task"],
+              ["Account CS / Health Scores → Stage 1–6 + Health Score", "Live — create + edit"],
+              ["CS / Health Scores edit → close all CS Stage Tasks + new Task", "Live — any stage; Close By System; skip Sales Order / manual"],
+              ["CS follow-up Task when Stage is not Healthy", "Live — Stages 1–4 only; Healthy = no Task"],
+              ["Welcome Task on Round Robin assign", "Live — Account create"],
+              ["CS Specialists changed → Welcome Task + reassign Tasks", "Live — highlighted"],
+              ["Account → CS Assignment Pool → CS Users", "Live — used by Refund, CS Tasks, Retention"],
+              ["Create Refund button", "Live — creates Refund, assigns CS, maps Account + Contact"],
+              ["Eligibility (Active + 3/5 days)", "Live — updated 20 Aug after your feedback"],
+              ["Bank collection method", "Live — Manual Entry or Send Form to Customer"],
+              ["Customer bank form + CS email", "Live — form updates Bank Name, Account, IBAN"],
+              ["2-day reminder if form not submitted", "Live — based on Form Send Date"],
+              ["Notify Finance → Finance Yes/No (Refund Status form)", "Live"],
+              ["Finance Yes → Refund Done + CS + customer emails", "Live"],
+              ["Finance No → notify CS Owner", "Live"],
+              ["Retention button on Sales Orders Uploading", "Live — creates Retention record (Backlog)"],
+              ["Retention schedule REN-01 (yearly, ≤ 60 days to End Date)", "Live — creates Retention · CS Owner"],
+              ["Retention walkthrough video (Retention Flow Video.mp4)", "Live — Retention tab"],
+              ["Video Guides tab (all demos + diagrams)", "Live — Video Guides tab"],
+              ["Ziwo click-to-call from CRM (video)", "Live — Video Guides · top"],
+              ["Pool delete → Round Robin reassign", "Agreed — build next"],
+            ].map(([name, state]) => (
+              <div
+                key={name}
+                className="flex flex-col gap-1 rounded-xl border border-[var(--line)] bg-[var(--paper)]/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <span className="font-medium text-[var(--ink)]">{name}</span>
+                <span className="text-sm text-[var(--ink-soft)]">{state}</span>
+              </div>
+            ))}
+          </div>
+        </details>
       </Section>
     </div>
   );

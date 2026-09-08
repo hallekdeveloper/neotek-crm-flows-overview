@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OverviewTab } from "../components/tabs/OverviewTab";
 import { AccountTab } from "../components/tabs/AccountTab";
 import { OnboardingTab } from "../components/tabs/OnboardingTab";
@@ -26,20 +26,32 @@ type TabId = (typeof tabs)[number]["id"];
 export default function Home() {
   const [active, setActive] = useState<TabId>("overview");
 
+  // Always open / refresh at the top (Overview hero), not the bottom status list
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [active]);
+
   return (
     <div className="min-h-screen">
-      <header className="border-b border-[var(--line)]/80 bg-[var(--card)]/70 backdrop-blur-md">
-        <div className="mx-auto max-w-5xl px-5 py-8 md:px-8 md:py-10">
+      <header className="sticky top-0 z-50 border-b border-[var(--line)]/80 bg-[var(--card)]/90 backdrop-blur-md">
+        <div className="mx-auto max-w-5xl px-5 py-5 md:px-8 md:py-6">
           <p className="text-xs font-semibold tracking-[0.22em] text-[var(--accent)] uppercase">
             Neotek · Zoho CRM
           </p>
           <h1
-            className="mt-3 max-w-2xl text-4xl leading-[1.1] text-[var(--ink)] md:text-5xl"
+            className="mt-2 max-w-2xl text-3xl leading-[1.1] text-[var(--ink)] md:text-4xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
             How your CRM flows work
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--ink-soft)] md:text-lg">
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-[var(--ink-soft)] md:text-base">
             One simple place to see business rules, what is live in Zoho today,
             and what comes next. No technical jargon.
           </p>
