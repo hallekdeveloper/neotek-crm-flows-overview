@@ -2,7 +2,14 @@ import { FlowDiagramRow, DiagramLegend } from "../Diagram";
 import { Badge, Card, ReqList, Section } from "../ui";
 
 type Go = (
-  id: "account" | "onboarding" | "cs" | "refund" | "retention" | "videos",
+  id:
+    | "account"
+    | "onboarding"
+    | "cs"
+    | "cs-dashboard"
+    | "refund"
+    | "retention"
+    | "videos",
 ) => void;
 
 export function OverviewTab({ onGo }: { onGo: Go }) {
@@ -53,6 +60,12 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               title: "CS Flow",
               status: "partial" as const,
               text: "CS / Health Scores on Accounts, Stage 1–6, Round Robin assign, Tasks. Pool delete next.",
+            },
+            {
+              id: "cs-dashboard" as const,
+              title: "CS Dashboard",
+              status: "live" as const,
+              text: "Live Zoho Analytics Customer Success dashboard + Accounts Tasks by Status and Accounts by CS Specialist reports.",
             },
             {
               id: "refund" as const,
