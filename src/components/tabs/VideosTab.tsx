@@ -20,12 +20,10 @@ const VIDEOS = {
   assistThumb: "/thumbs/assist-remote-thumb.png",
   refund1:
     "https://workdrive.zohoexternal.sa/external/992edbdb110216287bca171af7d29eecb766c7b03f83fd6c64a92d7ef45e44e4",
-  refund1Thumb:
-    "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd5da08efda992f4d198bceb1bc1165b896?size=l",
+  refund1Thumb: "/thumbs/refund-flow-thumb.png",
   refund2:
     "https://workdrive.zohoexternal.sa/external/d9a2fab2061e88e75a4a7576c4b6fc0f67f85073268914eee080cedd58a5f349",
-  refund2Thumb:
-    "https://previewengine.zohoexternal.sa/thumbnail/WD/5zcd54d6212afe0e14e9b8174963116910cd4?size=l",
+  refund2Thumb: "/thumbs/refund-testing-thumb.png",
   retention:
     "https://workdrive.zohoexternal.sa/external/8fc4f49e9f083aeb1cb2d0e7266d5a38c692ccf95107eb0dcb1d15f903e20b6d",
   retentionThumb: "/thumbs/retention-flow-thumb.png",
@@ -361,6 +359,7 @@ function GuideBlock({
   title,
   status,
   summary,
+  audience,
   whatYouSee,
   result,
   href,
@@ -374,6 +373,7 @@ function GuideBlock({
   title: string;
   status: "live" | "partial" | "soon";
   summary: string;
+  audience?: string;
   whatYouSee: string[];
   result: string;
   href: string;
@@ -391,6 +391,11 @@ function GuideBlock({
         </Badge>
       </div>
       <p className="mb-4 max-w-3xl leading-relaxed text-[var(--ink-soft)]">{summary}</p>
+      {audience && (
+        <p className="mb-4 max-w-3xl rounded-xl border border-[var(--accent)]/25 bg-[#e8f3ed] px-4 py-3 text-sm leading-relaxed text-[var(--ink)]">
+          {audience}
+        </p>
+      )}
       <p className="mb-2 text-sm font-semibold text-[var(--ink)]">In the video you will see</p>
       <ul className="mb-4 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[var(--ink-soft)]">
         {whatYouSee.map((item) => (
@@ -537,6 +542,7 @@ export function VideosTab() {
         title="Refund Flow — Video 1 (flow overview)"
         status="live"
         summary="High-level Refund walkthrough from Sales Orders Uploading. Watch the flow only — ignore any subscription Start Date spoken or shown in this older recording."
+        audience="You can use this as an internal guide for the Zoho CRM & Finance teams."
         whatYouSee={[
           "Create Refund from Sales Orders Uploading",
           "Eligibility idea (Active + window from Start Date)",
@@ -556,6 +562,7 @@ export function VideosTab() {
         title="Refund Flow — Video 2 (complete testing)"
         status="live"
         summary="Full Refund testing walkthrough. Use with the Start Date test cases on the Refund Flow tab."
+        audience="You can use this as an internal guide for the Zoho CRM & Finance teams."
         whatYouSee={[
           "End-to-end Refund create and checks",
           "Bank collection paths in practice",
