@@ -83,7 +83,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               id: "cs-dashboard" as const,
               title: "Dashboards & KPIs",
               status: "live" as const,
-              text: "Live Zoho Analytics Customer Success dashboard + Accounts Tasks by Status and Accounts by CS Specialist reports.",
+              text: "Customer Success Zoho Analytics — Accounts, Tasks, Contacts, Retention, Refund, Sales Orders Uploading (one tab each) + supporting reports.",
             },
           ].map((item) => (
             <button
@@ -156,7 +156,7 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
         <details className="rounded-2xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 open:pb-4">
           <summary className="cursor-pointer list-none font-medium text-[var(--ink)] outline-none marker:content-none [&::-webkit-details-marker]:hidden">
             <span className="flex items-center justify-between gap-3">
-              <span>Show live status checklist (24 items)</span>
+              <span>Show live status checklist</span>
               <span className="text-sm text-[var(--ink-soft)]">Tap to expand</span>
             </span>
           </summary>
@@ -185,6 +185,10 @@ export function OverviewTab({ onGo }: { onGo: Go }) {
               ["Retention walkthrough video (Retention Flow Video.mp4)", "Live — Retention tab"],
               ["Video Guides tab (all demos + diagrams)", "Live — Video Guides tab"],
               ["Ziwo click-to-call from CRM (video)", "Live — Video Guides · top"],
+              [
+                "Customer Success Analytics (Accounts · Tasks · Contacts · Retention · Refund · SO)",
+                "Live — Dashboards & KPIs tab",
+              ],
               ["Pool delete → Round Robin reassign", "Agreed — build next"],
             ].map(([name, state]) => (
               <div
